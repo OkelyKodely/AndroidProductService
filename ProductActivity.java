@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -166,12 +167,23 @@ public class ProductActivity extends AppCompatActivity {
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
 
+        Button insert = (Button) findViewById(R.id.inProduct);
+        insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ProductActivity.this, PNewActivity.class);
+                myIntent.putExtra("category", category);
+                ProductActivity.this.startActivity(myIntent);
+            }
+        });
+
         ListView lv = (ListView) findViewById(R.id.products);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(ProductActivity.this, PActivity.class);
                 myIntent.putExtra("productName", ((TextView)view.findViewById(R.id.product_name)).getText().toString());
+                myIntent.putExtra("category", category);
                 ProductActivity.this.startActivity(myIntent);
             }
         });

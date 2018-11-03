@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ProductActivity"
-    tools:showIn="@layout/activity_product"
-    android:background="#ffffff">
+    tools:showIn="@layout/activity_product">
+
+    <Button
+        android:id="@+id/inProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert" />
 
     <ListView
         android:id="@+id/products"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:divider="#CCCCCC"
         android:dividerHeight="1dp"
-        android:paddingLeft="2dp" />
+        android:paddingLeft="2dp"
+        android:layout_below="@+id/inProduct"/>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

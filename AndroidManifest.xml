@@ -3,7 +3,7 @@
     package="service.androidproductservice">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,6 +29,10 @@
         <activity
             android:name=".CategoryManageActivity"
             android:label="@string/title_activity_category_manage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PNewActivity"
+            android:label="@string/title_activity_pnew"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

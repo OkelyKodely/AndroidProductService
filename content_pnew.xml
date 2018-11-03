@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".PActivity"
-    tools:showIn="@layout/activity_p">
+    tools:context=".PNewActivity"
+    tools:showIn="@layout/activity_pnew">
 
     <TextView
         android:id="@+id/sdfa"
@@ -49,26 +48,27 @@
         android:layout_marginTop="251dp"
         android:text="desc:" />
 
-    <Button
-        android:id="@+id/updaButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/img_View"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="122dp"
-        android:text="Update" />
-
     <ImageView
-        android:id="@+id/img_View"
+        android:id="@+id/imgView"
         android:layout_width="146dp"
         android:layout_height="118dp"
         android:layout_alignEnd="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_marginTop="320dp"
-        android:layout_marginEnd="-238dp" />
+        android:layout_marginEnd="-238dp"
+        android:background="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/insrtButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="122dp"
+        android:text="Insert" />
 
     <MultiAutoCompleteTextView
-        android:id="@+id/ds_c"
+        android:id="@+id/dsc"
         android:layout_width="197dp"
         android:layout_height="58dp"
         android:layout_alignTop="@+id/textView6"
@@ -78,7 +78,7 @@
         android:textSize="8sp" />
 
     <TextView
-        android:id="@+id/prc_e"
+        android:id="@+id/prce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView4"
@@ -109,7 +109,7 @@
         android:textSize="8sp" />
 
     <EditText
-        android:id="@+id/e_Id"
+        android:id="@+id/eId"
         android:layout_width="123dp"
         android:layout_height="32dp"
         android:layout_alignEnd="@+id/e_Name"
@@ -120,7 +120,7 @@
         android:textSize="8sp" />
 
     <EditText
-        android:id="@+id/prce_2"
+        android:id="@+id/prce2"
         android:layout_width="117dp"
         android:layout_height="32dp"
         android:layout_alignEnd="@+id/e_Name"
@@ -131,7 +131,7 @@
         android:textSize="8sp" />
 
     <EditText
-        android:id="@+id/qtt_y"
+        android:id="@+id/qtty"
         android:layout_width="124dp"
         android:layout_height="33dp"
         android:layout_above="@+id/textView5"
@@ -142,21 +142,12 @@
         android:textSize="8sp" />
 
     <TextView
-        android:id="@+id/ctt_e"
-        android:layout_width="108dp"
+        android:id="@+id/ctte"
+        android:layout_width="122dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/qtty"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="219dp"
-        android:layout_marginEnd="50dp" />
-
-    <Button
-        android:id="@+id/delBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/updaButton"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="18dp"
-        android:text="Delete" />
+        android:layout_marginTop="220dp"
+        android:textSize="8sp" />
 
 </RelativeLayout>
