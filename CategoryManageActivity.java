@@ -3,8 +3,6 @@ package service.androidproductservice;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -48,13 +45,10 @@ public class CategoryManageActivity extends AppCompatActivity {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + hostName + "/" + dbName + "?user=" + userName + "&password=" + password + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
             conn = DriverManager.getConnection(url);
-            System.out.println("connected");
             return conn;
         }
         catch(Exception e)
         {
-            e.printStackTrace();
-
             return null;
         }
     }
@@ -82,7 +76,6 @@ public class CategoryManageActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
         }
     }
 
@@ -104,7 +97,6 @@ public class CategoryManageActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
         }
     }
 
@@ -126,7 +118,6 @@ public class CategoryManageActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
         }
     }
 
@@ -148,7 +139,6 @@ public class CategoryManageActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
         }
     }
 
@@ -178,7 +168,6 @@ public class CategoryManageActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     class SimpleTask extends AsyncTask<Void, Void, String> {
@@ -201,7 +190,6 @@ public class CategoryManageActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     @Override

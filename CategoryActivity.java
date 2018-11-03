@@ -3,22 +3,18 @@ package service.androidproductservice;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {
@@ -43,13 +39,10 @@ public class CategoryActivity extends AppCompatActivity {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + hostName + "/" + dbName + "?user=" + userName + "&password=" + password + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
             conn = DriverManager.getConnection(url);
-            System.out.println("connected");
             return conn;
         }
         catch(Exception e)
         {
-            e.printStackTrace();
-
             return null;
         }
     }
@@ -77,10 +70,8 @@ public class CategoryActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
         }
     }
-
 
     class SimpleTask extends AsyncTask<Void, Void, String> {
 
@@ -102,7 +93,6 @@ public class CategoryActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     @Override

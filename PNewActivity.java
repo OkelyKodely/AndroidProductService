@@ -4,33 +4,23 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class PNewActivity extends AppCompatActivity {
 
@@ -65,16 +55,12 @@ public class PNewActivity extends AppCompatActivity {
         try
         {
             DriverManager.registerDriver(new org.postgresql.Driver());
-            //Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + hostName + "/" + dbName + "?user=" + userName + "&password=" + password + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
             conn = DriverManager.getConnection(url);
-            System.out.println("connected");
             return conn;
         }
         catch(Exception e)
         {
-            e.printStackTrace();
-
             return null;
         }
     }
@@ -90,7 +76,6 @@ public class PNewActivity extends AppCompatActivity {
             fis.close();
 
         }catch(Exception ioExp){
-            ioExp.printStackTrace();
         }
         return bArray;
     }
@@ -110,7 +95,6 @@ public class PNewActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -136,7 +120,6 @@ public class PNewActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     @Override

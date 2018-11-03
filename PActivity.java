@@ -10,64 +10,22 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PActivity extends AppCompatActivity {
-
-    private void getProduct(String productName)
-    {
-        try
-        {
-            Connection con = getConnection();
-
-            PreparedStatement ps = con.prepareStatement(
-                    "select * from products2 where productName = '" + productName + "'"
-            );
-            ResultSet rs = ps.executeQuery();
-            if(rs.next())
-            {
-                p = new Product();
-                p.productID = rs.getString("productID");
-                p.image = rs.getBytes("image");
-                p.productName = rs.getString("productName");
-                p.stockQty = rs.getString("stockQty");
-                p.category = rs.getString("category");
-                p.description = rs.getString("description");
-                p.price = rs.getString("price");
-                System.out.println("P R I C E  " + p.price);
-            }
-            rs.close();
-            ps.close();
-
-            con.close();
-
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     private String pName = "";
 
@@ -105,17 +63,45 @@ public class PActivity extends AppCompatActivity {
         try
         {
             DriverManager.registerDriver(new org.postgresql.Driver());
-            //Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + hostName + "/" + dbName + "?user=" + userName + "&password=" + password + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
             conn = DriverManager.getConnection(url);
-            System.out.println("connected");
             return conn;
         }
         catch(Exception e)
         {
-            e.printStackTrace();
-
             return null;
+        }
+    }
+
+    private void getProduct(String productName)
+    {
+        try
+        {
+            Connection con = getConnection();
+
+            PreparedStatement ps = con.prepareStatement(
+                    "select * from products2 where productName = '" + productName + "'"
+            );
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+            {
+                p = new Product();
+                p.productID = rs.getString("productID");
+                p.image = rs.getBytes("image");
+                p.productName = rs.getString("productName");
+                p.stockQty = rs.getString("stockQty");
+                p.category = rs.getString("category");
+                p.description = rs.getString("description");
+                p.price = rs.getString("price");
+            }
+            rs.close();
+            ps.close();
+
+            con.close();
+
+        }
+        catch(Exception e)
+        {
         }
     }
 
@@ -130,7 +116,6 @@ public class PActivity extends AppCompatActivity {
             fis.close();
 
         }catch(Exception ioExp){
-            ioExp.printStackTrace();
         }
         return bArray;
     }
@@ -156,7 +141,6 @@ public class PActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -165,7 +149,7 @@ public class PActivity extends AppCompatActivity {
         try
         {
             Connection con = getConnection();
-            String sqlStr = "DELETE from products2 where productName = '" + pName + "'";
+            String sqlStr = "DELETE from products2 where productName = '" + product.productName + "'";
             PreparedStatement ps = con.prepareStatement(sqlStr);
             ps.executeUpdate();
             ps.close();
@@ -173,7 +157,6 @@ public class PActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -183,7 +166,6 @@ public class PActivity extends AppCompatActivity {
         protected String doInBackground(Void... params) {
             PActivity.Product p = new PActivity.Product();
             p.productID = ((EditText) findViewById(R.id.e_Id)).getText().toString();
-            ;
             p.category = category;
             p.description = ((EditText) findViewById(R.id.ds_c)).getText().toString();
             p.price = ((TextView) findViewById(R.id.prce_2)).getText().toString();
@@ -200,7 +182,6 @@ public class PActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     class DelTask extends AsyncTask<Void, Void, String> {
@@ -208,13 +189,7 @@ public class PActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             PActivity.Product p = new PActivity.Product();
-            p.productID = ((EditText) findViewById(R.id.e_Id)).getText().toString();
-            ;
-            p.category = category;
-            p.description = ((EditText) findViewById(R.id.ds_c)).getText().toString();
-            p.price = ((TextView) findViewById(R.id.prce_2)).getText().toString();
             p.productName = ((TextView) findViewById(R.id.e_Name)).getText().toString();
-            p.stockQty = ((TextView) findViewById(R.id.qtt_y)).getText().toString();
             del(p);
             Intent myIntent = new Intent(PActivity.this, ProductActivity.class);
             myIntent.putExtra("category", category);
@@ -226,7 +201,6 @@ public class PActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     public Bitmap getImageDataInBitmap() {
@@ -250,7 +224,6 @@ public class PActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     @Override
@@ -325,12 +298,6 @@ public class PActivity extends AppCompatActivity {
             EditText dsc = (EditText) findViewById(R.id.ds_c);
             ImageView ivv = (ImageView) findViewById(R.id.img_View);
             p_name.setText(p.productName);
-            System.out.println("pppname :::: " + p.productName);
-            System.out.println("pppeid :::: " + p.productID);
-            System.out.println("pppprice :::: " + p.price);
-            System.out.println("pppqty :::: " + p.stockQty);
-            System.out.println("pppdsc :::: " + p.description);
-            System.out.println("pppimv :::: " + p.image);
             e_id.setText(p.productID);
             prce2.setText(p.price);
             qtty.setText(p.stockQty);

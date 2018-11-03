@@ -5,28 +5,21 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -93,13 +86,10 @@ public class ProductActivity extends AppCompatActivity {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + hostName + "/" + dbName + "?user=" + userName + "&password=" + password + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
             conn = DriverManager.getConnection(url);
-            System.out.println("connected");
             return conn;
         }
         catch(Exception e)
         {
-            e.printStackTrace();
-
             return null;
         }
     }
@@ -137,7 +127,6 @@ public class ProductActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            e.printStackTrace();
         }
     }
 
@@ -154,7 +143,6 @@ public class ProductActivity extends AppCompatActivity {
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
         }
-
     };
 
     @Override

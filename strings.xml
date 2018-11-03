@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Check Product Service</string>
+    <string name="app_name">Android Product Service</string>
     <string name="title_activity_product">Products</string>
     <string name="title_activity_p">Product</string>
     <string name="all">all</string>
     <string name="title_activity_category_manage">Manage Category</string>
-    <string name="title_activity_pnew">PNewActivity</string>
+    <string name="title_activity_pnew">New Product</string>
 </resources>
