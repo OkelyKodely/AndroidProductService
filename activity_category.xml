@@ -4,23 +4,22 @@
     android:id="@+id/l1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#efebe1"
+    android:background="#ffffff"
     android:orientation="vertical"
     android:padding="10dp">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Check Product Service > Category"
-        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="231dp"
         android:adjustViewBounds="true"
-        android:src="@mipmap/ic_launcher_round"></ImageView>
+        android:src="@drawable/background"></ImageView>
+
+    <Button
+        android:id="@+id/catManage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Category" />
 
     <ListView
         android:id="@+id/list"

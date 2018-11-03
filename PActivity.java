@@ -1,6 +1,8 @@
 package service.androidproductservice;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -28,6 +31,7 @@ public class PActivity extends AppCompatActivity {
     private Product p = new Product();
 
     class Product {
+        private byte[] image;
         private String productName;
         private String qty;
         private String category;
@@ -72,6 +76,7 @@ public class PActivity extends AppCompatActivity {
             ResultSet rs = ps.executeQuery();
             if(rs.next())
             {
+                p.image = rs.getBytes("image");
                 p.productName = rs.getString("productName");
                 p.qty = rs.getString("stockQty");
                 p.category = rs.getString("category");
@@ -118,6 +123,7 @@ public class PActivity extends AppCompatActivity {
         SimpleTask simple = new SimpleTask();
         simple.execute();
 
+        ImageView image = (ImageView) findViewById(R.id.imgView);
         TextView prodName = (TextView) findViewById(R.id.productName);
         TextView qty = (TextView) findViewById(R.id.qty);
         TextView categ = (TextView) findViewById(R.id.categ);
@@ -127,11 +133,13 @@ public class PActivity extends AppCompatActivity {
         while(true) {
             if(p.productName == null)
                 continue;
+            Bitmap bmp = BitmapFactory.decodeByteArray(p.image, 0, p.image.length);
+            image.setImageBitmap(bmp);
             prodName.setText(p.productName);
             qty.setText(p.qty);
             categ.setText(p.category);
             desc.setText(p.desc);
-            price.setText(p.price);
+            price.setText("$" + p.price);
             break;
         }
     }

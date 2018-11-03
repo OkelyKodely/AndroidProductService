@@ -25,6 +25,10 @@
         <activity
             android:name=".PActivity"
             android:label="@string/title_activity_p"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CategoryManageActivity"
+            android:label="@string/title_activity_category_manage"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

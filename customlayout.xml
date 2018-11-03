@@ -4,7 +4,7 @@
     android:id="@+id/cl"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#efebe1"
+    android:background="#ffffff"
     android:padding="10dp">
 
     <ImageView
@@ -26,7 +26,7 @@
         android:layout_marginTop="-6dp"
         android:layout_toEndOf="@+id/imageView"
         android:text="TextView"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/product_price"
@@ -36,5 +36,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-2dp"
         android:text="TextView"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 </RelativeLayout>

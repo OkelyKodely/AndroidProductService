@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CategoryActivity extends Activity {
+public class CategoryActivity extends AppCompatActivity {
 
     private String[] fruits = null;
 
@@ -110,11 +113,19 @@ public class CategoryActivity extends Activity {
         SimpleTask s = new SimpleTask();
         s.execute();
 
+        Button catManage = (Button) findViewById(R.id.catManage);
+        catManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(CategoryActivity.this, CategoryManageActivity.class);
+                CategoryActivity.this.startActivity(myIntent);
+            }
+        });
+
         ListView lv = (ListView) findViewById(R.id.list);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(((TextView)view).getText().toString());
                 Intent myIntent = new Intent(CategoryActivity.this, ProductActivity.class);
                 myIntent.putExtra("category", ((TextView)view).getText().toString());
                 CategoryActivity.this.startActivity(myIntent);

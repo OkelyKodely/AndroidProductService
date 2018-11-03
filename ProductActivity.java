@@ -109,9 +109,15 @@ public class ProductActivity extends AppCompatActivity {
         {
             Connection con = getConnection();
 
-            PreparedStatement ps = con.prepareStatement(
-                    "select * from products2 where category = '" + category + "' order by productID asc"
-            );
+            PreparedStatement ps = null;
+            if(category.equals("all"))
+                ps = con.prepareStatement(
+                        "select * from products2 order by productID asc"
+                );
+            else
+                ps = con.prepareStatement(
+                        "select * from products2 where category = '" + category + "' order by productID asc"
+                );
             ResultSet rs = ps.executeQuery();
             products.clear();
             while(rs.next())
