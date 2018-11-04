@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -172,6 +174,15 @@ public class CategoryManageActivity extends AppCompatActivity {
 
     class SimpleTask extends AsyncTask<Void, Void, String> {
 
+        // CAST THE LINEARLAYOUT HOLDING THE MAIN PROGRESS (SPINNER)
+        LinearLayout linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
+
+        @Override
+        protected void onPreExecute() {
+            // SHOW THE SPINNER WHILE LOADING FEEDS
+            linlaHeaderProgress.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected String doInBackground(Void... params) {
             getCategories();
@@ -189,6 +200,15 @@ public class CategoryManageActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
+            // SET THE ADAPTER TO THE LISTVIEW
+            ListView lv = (ListView) findViewById(R.id.catManageListView);
+            lv.setAdapter(arrayAdapter);
+
+            // CHANGE THE LOADINGMORE STATUS TO PERMIT FETCHING MORE DATA
+            //loadingMore = false;
+
+            // HIDE THE SPINNER AFTER LOADING FEEDS
+            linlaHeaderProgress.setVisibility(View.GONE);
         }
     };
 
@@ -240,11 +260,5 @@ public class CategoryManageActivity extends AppCompatActivity {
                 et.setText(((TextView)view).getText().toString());
             }
         });
-        while(true) {
-            if(arrayAdapter == null)
-                continue;
-            lv.setAdapter(arrayAdapter);
-            break;
-        }
     }
 }

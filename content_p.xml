@@ -9,6 +9,22 @@
     tools:context=".PActivity"
     tools:showIn="@layout/activity_p">
 
+    <LinearLayout
+        android:id="@+id/linlaHeaderProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/sdfa"
         android:layout_width="wrap_content"
@@ -36,7 +52,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="227dp"
         android:text="category:" />
 
     <TextView
@@ -45,8 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView5"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="251dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="283dp"
         android:text="desc:" />
 
     <Button
@@ -60,20 +76,20 @@
 
     <ImageView
         android:id="@+id/img_View"
-        android:layout_width="146dp"
-        android:layout_height="118dp"
+        android:layout_width="143dp"
+        android:layout_height="108dp"
         android:layout_alignEnd="@+id/textView6"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="-238dp" />
+        android:layout_marginTop="352dp"
+        android:layout_marginEnd="-233dp" />
 
     <MultiAutoCompleteTextView
         android:id="@+id/ds_c"
         android:layout_width="197dp"
         android:layout_height="58dp"
         android:layout_alignTop="@+id/textView6"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="-3dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="7dp"
         android:layout_toEndOf="@+id/sdfa"
         android:textSize="8sp" />
 
@@ -141,14 +157,15 @@
         android:inputType="textPersonName"
         android:textSize="8sp" />
 
-    <TextView
+    <Spinner
         android:id="@+id/ctt_e"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="219dp"
-        android:layout_marginEnd="50dp" />
+        android:layout_width="174dp"
+        android:layout_height="43dp"
+        android:layout_below="@id/qtt_y"
+        android:layout_alignStart="@+id/updaButton"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="224dp"
+        android:background="#cccccc" />
 
     <Button
         android:id="@+id/delBtn"

@@ -13,7 +13,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -132,6 +134,15 @@ public class ProductActivity extends AppCompatActivity {
 
     class SimpleTask extends AsyncTask<Void, Void, String> {
 
+        // CAST THE LINEARLAYOUT HOLDING THE MAIN PROGRESS (SPINNER)
+        LinearLayout linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
+
+        @Override
+        protected void onPreExecute() {
+            // SHOW THE SPINNER WHILE LOADING FEEDS
+            linlaHeaderProgress.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected String doInBackground(Void... params) {
             getProducts(category);
@@ -142,6 +153,15 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
+            // SET THE ADAPTER TO THE LISTVIEW
+            ListView lv = (ListView) findViewById(R.id.products);
+            lv.setAdapter(adapter);
+
+            // CHANGE THE LOADINGMORE STATUS TO PERMIT FETCHING MORE DATA
+            //loadingMore = false;
+
+            // HIDE THE SPINNER AFTER LOADING FEEDS
+            linlaHeaderProgress.setVisibility(View.GONE);
         }
     };
 
@@ -175,13 +195,8 @@ public class ProductActivity extends AppCompatActivity {
                 ProductActivity.this.startActivity(myIntent);
             }
         });
+
         SimpleTask simple = new SimpleTask();
         simple.execute();
-        while(true) {
-            if(adapter == null)
-                continue;
-            lv.setAdapter(adapter);
-            break;
-        }
     }
 }

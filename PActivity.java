@@ -14,9 +14,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,10 +29,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PActivity extends AppCompatActivity {
 
     private String pName = "";
+
+    private List<String> list = null;
+
+    private int selectedCategoryIndex = -1;
 
     private String category = "";
 
@@ -91,6 +102,7 @@ public class PActivity extends AppCompatActivity {
                 p.productName = rs.getString("productName");
                 p.stockQty = rs.getString("stockQty");
                 p.category = rs.getString("category");
+                category = p.category;
                 p.description = rs.getString("description");
                 p.price = rs.getString("price");
             }
@@ -214,15 +226,89 @@ public class PActivity extends AppCompatActivity {
 
     class SimpleTask extends AsyncTask<Void, Void, String> {
 
+        // CAST THE LINEARLAYOUT HOLDING THE MAIN PROGRESS (SPINNER)
+        LinearLayout linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
+
+        @Override
+        protected void onPreExecute() {
+            // SHOW THE SPINNER WHILE LOADING FEEDS
+            linlaHeaderProgress.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected String doInBackground(Void... params) {
             getProduct(pName);
+            list = new ArrayList<String>();
+            try
+            {
+                Connection con = getConnection();
+
+                PreparedStatement ps = con.prepareStatement(
+                        "select * from categories order by category asc"
+                );
+                ResultSet rs = ps.executeQuery();
+                int c = -1;
+                while(rs.next())
+                {
+                    c++;
+                    if(rs.getString("category").toLowerCase().trim().equals(p.category.toLowerCase().trim())) {
+                        selectedCategoryIndex = c;
+                    }
+                    list.add(rs.getString("category"));
+                }
+                rs.close();
+                ps.close();
+
+                con.close();
+
+            }
+            catch(Exception e)
+            {
+            }
             return "";
         }
 
         @Override
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
+            // SET THE ADAPTER TO THE LISTVIEW
+            Spinner spinner = (Spinner) findViewById(R.id.ctt_e);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    category = parent.getItemAtPosition(position).toString();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(PActivity.this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
+            spinner.setSelection(selectedCategoryIndex, true);
+
+            EditText p_name = (EditText) findViewById(R.id.e_Name);
+            EditText e_id = (EditText) findViewById(R.id.e_Id);
+            EditText prce2 = (EditText) findViewById(R.id.prce_2);
+            EditText qtty = (EditText) findViewById(R.id.qtt_y);
+            EditText dsc = (EditText) findViewById(R.id.ds_c);
+            ImageView ivv = (ImageView) findViewById(R.id.img_View);
+            p_name.setText(p.productName);
+            e_id.setText(p.productID);
+            prce2.setText(p.price);
+            qtty.setText(p.stockQty);
+            dsc.setText(p.description);
+            Bitmap b = getImageDataInBitmap();
+            ivv.setImageBitmap(b);
+
+            // CHANGE THE LOADINGMORE STATUS TO PERMIT FETCHING MORE DATA
+            //loadingMore = false;
+
+            // HIDE THE SPINNER AFTER LOADING FEEDS
+            linlaHeaderProgress.setVisibility(View.GONE);
         }
     };
 
@@ -236,9 +322,6 @@ public class PActivity extends AppCompatActivity {
         Intent intent = getIntent();
         pName = intent.getStringExtra("productName");
         category = intent.getStringExtra("category");
-
-        TextView tv = (TextView) findViewById(R.id.ctt_e);
-        tv.setText(category);
 
         Button update = (Button) findViewById(R.id.updaButton);
         update.setOnClickListener(new View.OnClickListener() {
@@ -284,28 +367,18 @@ public class PActivity extends AppCompatActivity {
         SimpleTask s = new SimpleTask();
         s.execute();
 
-        while (true) {
-            if (p == null)
-                continue;
-            else {
-                if(p.description == null || p.productID == null || p.productName == null || p.category == null || p.stockQty == null || p.price == null)
-                    continue;
+        Spinner spinner = (Spinner) findViewById(R.id.ctt_e);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category = parent.getItemAtPosition(position).toString();
             }
-            EditText p_name = (EditText) findViewById(R.id.e_Name);
-            EditText e_id = (EditText) findViewById(R.id.e_Id);
-            EditText prce2 = (EditText) findViewById(R.id.prce_2);
-            EditText qtty = (EditText) findViewById(R.id.qtt_y);
-            EditText dsc = (EditText) findViewById(R.id.ds_c);
-            ImageView ivv = (ImageView) findViewById(R.id.img_View);
-            p_name.setText(p.productName);
-            e_id.setText(p.productID);
-            prce2.setText(p.price);
-            qtty.setText(p.stockQty);
-            dsc.setText(p.description);
-            Bitmap b = getImageDataInBitmap();
-            ivv.setImageBitmap(b);
-            break;
-        }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
